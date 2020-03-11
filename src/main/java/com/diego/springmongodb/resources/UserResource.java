@@ -1,5 +1,6 @@
 package com.diego.springmongodb.resources;
 
+import com.diego.springmongodb.domain.Post;
 import com.diego.springmongodb.domain.User;
 import com.diego.springmongodb.dto.UserDTO;
 import com.diego.springmongodb.services.UserService;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -57,9 +59,15 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
 
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
 
     }
+
 
 
 }
