@@ -6,6 +6,7 @@ import com.diego.springmongodb.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,10 @@ public class PostService {
         }
 
         return post.get();
+    }
+
+    public List<Post> findByTitle(String text){
+        return repository.findByTitleContaining(text);
     }
 
 }
